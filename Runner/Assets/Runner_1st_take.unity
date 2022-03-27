@@ -828,6 +828,7 @@ MonoBehaviour:
   moveSpeed: 15
   mousesenX: 1
   mousesenY: 1
+  distance: 5
 --- !u!136 &2008586780
 CapsuleCollider:
   m_ObjectHideFlags: 0

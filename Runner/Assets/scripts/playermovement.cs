@@ -8,6 +8,8 @@ public class playermovement : MonoBehaviour
     public float moveSpeed = 15f;
     public float mousesenX = 1f;
     public float mousesenY = 1f;
+    //var distance = float = 5;
+    public float distance = 5;
     float verticalLockRotation;
     Transform mainCam;
 
@@ -15,8 +17,6 @@ public class playermovement : MonoBehaviour
     //hides mouse cursor in game window press esc key to unlock cursor 
     void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
         mainCam = Camera.main.transform;
     }
         
@@ -33,31 +33,33 @@ public class playermovement : MonoBehaviour
 
         transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * mousesenX);
         verticalLockRotation += Input.GetAxis("Mouse Y") * mousesenY;
-        //verticaLockRotation = Mathf.Clamp(verticalLockRotation, -80 80);
-        mainCam.localEulerAngles = Vector3.left * verticalLockRotation;
+
+        //move charcter in direction the camera is facing
+        transform.position = transform.position + Camera.main.transform.forward * distance * Time.deltaTime;
+
 
 
         //controls and movement for the 4 main keys
-        Vector3 posit = transform.position;
+        Vector3 position = transform.position;
 
         if (Input.GetKey("w"))
         {
-            posit.z += moveSpeed * Time.deltaTime;
+            position.z += moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey("s"))
         {
-            posit.z -= moveSpeed * Time.deltaTime;
+            position.z -= moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey("d"))
         {
-            posit.x += moveSpeed * Time.deltaTime;
+            position.x += moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey("a"))
         {
-            posit.x -= moveSpeed * Time.deltaTime;
+            position.x -= moveSpeed * Time.deltaTime;
         }
 
-        transform.position = posit;
+        transform.position = position;
     }
 }
 
